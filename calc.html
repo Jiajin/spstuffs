@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Select the environment (FM, Prem card)</p>
+Fusion Mania: <input type="checkbox" id="fm">
+<br>
+Premium Event Card: <input type="checkbox" id="prem">
+<p>Input your current Percent</p>
+
+<input id="inputPercent" type="number" value="9">
+
+<button onclick="myFunction()">2-2</button>
+
+<p>Roll</p>
+<p id="demo2"></p>
+<p>New Percent</p>
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+
+// Get the checkboxes
+  var fm = document.getElementById("fm");
+  var prem = document.getElementById("prem");
+  var currPercent = document.getElementById("inputPercent").value;
+  
+var x = Math.floor((Math.random() * 100) + 1);
+var origRoll = x;
+var displayMsg = "Rolled " + x + ".";
+if (fm.checked == true){
+    x = x - 5;
+    displayMsg = displayMsg + "<br>-5 From FusionMania Active "
+  }
+  if (prem.checked == true){
+    x = x - 5;
+    displayMsg = displayMsg + "<br>-5 From Prem Card Active"
+  }
+  if (currPercent >= 32){
+  	x = x-10;
+    displayMsg = displayMsg + "<br>-10 From Percent >= 32 "
+  }else if (currPercent >= 28){
+  	x = x-5;
+    displayMsg = displayMsg + "<br>-5 From Percent >= 28 "
+  }else if (currPercent >= 24){
+  	x = x-3;
+    displayMsg = displayMsg + "<br>-3 From Percent >= 24 "
+  }
+  displayMsg = displayMsg + "<br>Final roll = " + x;
+var percentResult = 0;
+switch (true) {
+    case (x <= 3):
+        percentResult=36;
+        break;
+    case (x <= 4):
+        percentResult=35;
+        break;
+    case (x <= 5):
+        percentResult=34;
+        break;
+    case (x <= 7):
+        percentResult=33;
+        break;
+    case (x <= 9):
+        percentResult=32;
+        break;
+    case (x <= 11):
+        percentResult=31;
+        break;
+    case (x <= 13):
+        percentResult=30;
+        break;
+    case (x <= 15):
+        percentResult=29;
+        break;
+    case (x <= 19):
+        percentResult=28;
+        break;
+    case (x <= 23):
+        percentResult=27;
+        break;
+    case (x <= 27):
+        percentResult=26;
+        break;
+    case (x <= 31):
+        percentResult=25;
+        break;
+    case (x <= 35):
+        percentResult=24;
+        break;
+    case (x <= 37):
+        percentResult=23;
+        break;
+    case (x <= 39):
+        percentResult=22;
+        break;
+    case (x <= 41):
+        percentResult=21;
+        break;
+    case (x <= 43):
+        percentResult=20;
+        break;
+    case (x <= 45):
+        percentResult=19;
+        break;
+    case (x <= 47):
+        percentResult=18;
+        break;
+    case (x <= 49):
+        percentResult=17;
+        break;
+    case (x <= 51):
+        percentResult=16;
+        break;
+    case (x <= 53):
+        percentResult=15;
+        break;
+    case (x <= 55):
+        percentResult=14;
+        break;
+    case (x <= 57):
+        percentResult=13;
+        break;
+    case (x <= 59):
+        percentResult=12;
+        break;
+    case (x <= 61):
+        percentResult=11;
+        break;
+    case (x <= 63):
+        percentResult=10;
+        break;
+    case (x <= 65):
+        percentResult=9;
+        break;
+    case (x <= 95):
+        percentResult=999;
+        break;
+    default:
+        percentResult=9999;
+        break;
+}
+var percentDisplayMsg = "";
+if (percentResult <= currPercent){
+	percentDisplayMsg = currPercent + " No change because the result percent rolled was lower than current percent.";
+}else if (percentResult == 999){
+	percentDisplayMsg = currPercent + " No change because 30% chance of no change.";
+}else if (percentResult == 9999){
+	percentDisplayMsg = (currPercent -1) + " Minus 1 because 5% chance of -1";
+}else{
+	percentDisplayMsg = percentResult;
+}
+document.getElementById("demo").innerHTML = percentDisplayMsg;
+document.getElementById("demo2").innerHTML = displayMsg;
+
+   
+}
+</script>
+
+</body>
+</html>
