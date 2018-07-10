@@ -11,6 +11,7 @@ Premium Event Card: <input type="checkbox" id="prem">
 <input id="inputPercent" type="number" value="9">
 
 <button onclick="myFunction()">2-2</button>
+<p> No. of tries: <input id="count" type="number" value="1" disabled>
 
 <p>Roll</p>
 <p id="demo2"></p>
@@ -18,12 +19,16 @@ Premium Event Card: <input type="checkbox" id="prem">
 <p id="demo"></p>
 
 <script>
+var sessionCount = 0;
 function myFunction() {
+
+
 
 // Get the checkboxes
   var fm = document.getElementById("fm");
   var prem = document.getElementById("prem");
   var currPercent = document.getElementById("inputPercent").value;
+  var countDisplay = document.getElementById("count");
   
 var x = Math.floor((Math.random() * 100) + 1);
 var origRoll = x;
@@ -150,8 +155,10 @@ if (percentResult <= currPercent){
 }else{
 	percentDisplayMsg = percentResult;
 }
+sessionCount = sessionCount + 1;
 document.getElementById("demo").innerHTML = percentDisplayMsg;
 document.getElementById("demo2").innerHTML = displayMsg;
+countDisplay.value = sessionCount;
 
    
 }
