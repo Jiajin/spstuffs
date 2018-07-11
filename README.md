@@ -1,2 +1,2 @@
-# spstuffs
-Tools for Survival Project
+# SP Stuffs
+Tools and Simulators for Survival Project
