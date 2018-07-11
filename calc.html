@@ -1,23 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"> 
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
 <body>
+<div class="container">
 
-<p>Select the environment (FM, Prem card)</p>
-Fusion Mania: <input type="checkbox" id="fm">
-<br>
-Premium Event Card: <input type="checkbox" id="prem">
-<p>Input your current Percent</p>
+<div class="row">
+	<p>Select the environment (FM, Prem card)</p>
+</div>
+<div class="row">
+	<div class="col-sm-2">Fusion Mania:</div>
+	<div class="col-sm-2"> <input type="checkbox" id="fm"></div>
+</div>
 
-<input id="inputPercent" type="number" value="9">
+<div class="row">
+	<div class="col-sm-2">Premium Event Card:</div>
+	<div class="col-sm-2"> <input type="checkbox" id="prem"></div>
+</div>
 
-<button onclick="myFunction()">2-2</button>
-<p> No. of tries: <input id="count" type="number" value="1" disabled>
+<div class="row">
+	<div class="col-sm-2">Input your current Percent</div>
+	<div class="col-sm-1"> <input id="inputPercent" type="number" value="9" min="9" max="36" ></div>
+	<div class="col-sm-1"><button onclick="myFunction()">2-2</button></div>
+</div>
 
-<p>Roll</p>
-<p id="demo2"></p>
-<p>New Percent</p>
-<p id="demo"></p>
+<div class="row">
+	<div class="col-sm-2">No. of tries:</div>
+	<div class="col-sm-2"> <div id="count">0</div></div>
+</div>
 
+<div class="row">
+	<div class="col-sm-2">
+		Random Number Generated:
+	</div>
+	<div class="col-sm-2">
+		<p id="displayMsg"></p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-2"> 
+		<p>New Percent</p>
+	</div>
+	
+	<div class="col-sm-2"><p id="demo"></p></div>
+</div>
+
+
+</body>
+
+</div>
 <script>
 var sessionCount = 0;
 function myFunction() {
@@ -32,7 +73,7 @@ function myFunction() {
   
 var x = Math.floor((Math.random() * 100) + 1);
 var origRoll = x;
-var displayMsg = "Rolled " + x + ".";
+var displayMsg = x + " ";
 if (fm.checked == true){
     x = x - 5;
     displayMsg = displayMsg + "<br>-5 From FusionMania Active "
@@ -151,18 +192,25 @@ if (percentResult <= currPercent){
 }else if (percentResult == 999){
 	percentDisplayMsg = currPercent + " No change because 30% chance of no change.";
 }else if (percentResult == 9999){
-	percentDisplayMsg = (currPercent -1) + " Minus 1 because 5% chance of -1";
+	currPercent = currPercent -1;
+	if (currPercent = 8)
+		currPercent = 9;
+	percentDisplayMsg = (currPercent) + " Minus 1 because 5% chance of -1";
 }else{
+	console.log("percentResult " + percentResult);
+	currPercent = percentResult;
 	percentDisplayMsg = percentResult;
 }
 sessionCount = sessionCount + 1;
 document.getElementById("demo").innerHTML = percentDisplayMsg;
-document.getElementById("demo2").innerHTML = displayMsg;
-countDisplay.value = sessionCount;
+document.getElementById("displayMsg").innerHTML = displayMsg;
+countDisplay.innerHTML = sessionCount;
+	console.log("currPercent " + currPercent);
+document.getElementById("inputPercent").value = currPercent;
 
    
 }
 </script>
 
-</body>
+
 </html>
