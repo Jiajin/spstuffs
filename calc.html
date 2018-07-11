@@ -13,7 +13,8 @@
 </head>
 <body>
 <div class="container">
-
+<a href="calc_ch.html">华语</a> 
+<br>
 <div class="row">
 	<p>2-2 Simulator </p>
 </div>
@@ -70,11 +71,10 @@
 var sessionCount = 0;
 function myFunction() {
 
-
-
 // Get the checkboxes
   var fm = document.getElementById("fm");
   var prem = document.getElementById("prem");
+  
   var currPercent = document.getElementById("inputPercent").value;
   var countDisplay = document.getElementById("count");
   
@@ -204,15 +204,17 @@ if (percentResult <= currPercent){
 		currPercent = 9;
 	percentDisplayMsg = (currPercent) + " Minus 1 because 5% chance of -1";
 }else{
-	console.log("percentResult " + percentResult);
 	currPercent = percentResult;
 	percentDisplayMsg = percentResult;
 }
+
+//Increment session counter
 sessionCount = sessionCount + 1;
+document.getElementById("count").innerHTML = sessionCount;
+//Print result and messages.
 document.getElementById("demo").innerHTML = percentDisplayMsg;
 document.getElementById("displayMsg").innerHTML = displayMsg;
-countDisplay.innerHTML = sessionCount;
-	console.log("currPercent " + currPercent);
+//Update the current percent input field
 document.getElementById("inputPercent").value = currPercent;
 
    

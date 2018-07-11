@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"> 
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+<a href="calc.html">English</a> 
+<br>
+<div class="row">
+	<p>2-2 模拟器</p>
+</div>
+
+<div class="row">
+	<p><b>声明: 成功率不准确，我没参与这系统开发。</b> </p>
+</div>
+<div class="row">
+	<p>选择以下所拥有条件 (FM, Premium card)</p>
+</div>
+<div class="row">
+	<div class="col-sm-2">Fusion Mania:</div>
+	<div class="col-sm-2"> <input type="checkbox" id="fm"></div>
+</div>
+
+<div class="row">
+	<div class="col-sm-2">Premium Event Card:</div>
+	<div class="col-sm-2"> <input type="checkbox" id="prem"></div>
+</div>
+
+<div class="row">
+	<div class="col-sm-2">输入当前装备的%</div>
+	<div class="col-sm-1"> <input id="inputPercent" type="number" value="9" min="9" max="36" ></div>
+	<div class="col-sm-1"><button onclick="myFunction()">2-2</button></div>
+</div>
+
+<div class="row">
+	<div class="col-sm-2">尝试次数:</div>
+	<div class="col-sm-2"> <div id="count">0</div></div>
+</div>
+
+<div class="row">
+	<div class="col-sm-2">
+		已生成随机数:
+	</div>
+	<div class="col-sm-2">
+		<p id="displayMsg"></p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-2"> 
+		<p>新%</p>
+	</div>
+	
+	<div class="col-sm-2"><p id="demo"></p></div>
+</div>
+
+
+</body>
+
+</div>
+<script>
+var sessionCount = 0;
+function myFunction() {
+
+// Get the checkboxes
+  var fm = document.getElementById("fm");
+  var prem = document.getElementById("prem");
+  
+  var currPercent = document.getElementById("inputPercent").value;
+  var countDisplay = document.getElementById("count");
+  
+var x = Math.floor((Math.random() * 100) + 1);
+var origRoll = x;
+var displayMsg = x + " ";
+if (fm.checked == true){
+    x = x - 5;
+    displayMsg = displayMsg + "<br>-5 From FusionMania Active "
+  }
+  if (prem.checked == true){
+    x = x - 5;
+    displayMsg = displayMsg + "<br>-5 From Prem Card Active"
+  }
+  if (currPercent >= 32){
+  	x = x-10;
+    displayMsg = displayMsg + "<br>-10 From Percent >= 32 "
+  }else if (currPercent >= 28){
+  	x = x-5;
+    displayMsg = displayMsg + "<br>-5 From Percent >= 28 "
+  }else if (currPercent >= 24){
+  	x = x-3;
+    displayMsg = displayMsg + "<br>-3 From Percent >= 24 "
+  }
+  displayMsg = displayMsg + "<br>Final roll = " + x;
+var percentResult = 0;
+switch (true) {
+    case (x <= 3):
+        percentResult=36;
+        break;
+    case (x <= 4):
+        percentResult=35;
+        break;
+    case (x <= 5):
+        percentResult=34;
+        break;
+    case (x <= 7):
+        percentResult=33;
+        break;
+    case (x <= 9):
+        percentResult=32;
+        break;
+    case (x <= 11):
+        percentResult=31;
+        break;
+    case (x <= 13):
+        percentResult=30;
+        break;
+    case (x <= 15):
+        percentResult=29;
+        break;
+    case (x <= 19):
+        percentResult=28;
+        break;
+    case (x <= 23):
+        percentResult=27;
+        break;
+    case (x <= 27):
+        percentResult=26;
+        break;
+    case (x <= 31):
+        percentResult=25;
+        break;
+    case (x <= 35):
+        percentResult=24;
+        break;
+    case (x <= 37):
+        percentResult=23;
+        break;
+    case (x <= 39):
+        percentResult=22;
+        break;
+    case (x <= 41):
+        percentResult=21;
+        break;
+    case (x <= 43):
+        percentResult=20;
+        break;
+    case (x <= 45):
+        percentResult=19;
+        break;
+    case (x <= 47):
+        percentResult=18;
+        break;
+    case (x <= 49):
+        percentResult=17;
+        break;
+    case (x <= 51):
+        percentResult=16;
+        break;
+    case (x <= 53):
+        percentResult=15;
+        break;
+    case (x <= 55):
+        percentResult=14;
+        break;
+    case (x <= 57):
+        percentResult=13;
+        break;
+    case (x <= 59):
+        percentResult=12;
+        break;
+    case (x <= 61):
+        percentResult=11;
+        break;
+    case (x <= 63):
+        percentResult=10;
+        break;
+    case (x <= 65):
+        percentResult=9;
+        break;
+    case (x <= 95):
+        percentResult=999;
+        break;
+    default:
+        percentResult=9999;
+        break;
+}
+var percentDisplayMsg = "";
+if (percentResult <= currPercent){
+	percentDisplayMsg = currPercent + " *保持不变，因为生成随机数比当前装备的%小。";
+}else if (percentResult == 999){
+	percentDisplayMsg = currPercent + " 保持不变，因为有30%的机率保持%。";
+}else if (percentResult == 9999){
+	currPercent = currPercent -1;
+	if (currPercent = 8)
+		currPercent = 9;
+	percentDisplayMsg = (currPercent) + " -1，因为有5%机率-1。";
+}else{
+	currPercent = percentResult;
+	percentDisplayMsg = percentResult;
+}
+
+//Increment session counter
+sessionCount = sessionCount + 1;
+document.getElementById("count").innerHTML = sessionCount;
+//Print result and messages.
+document.getElementById("demo").innerHTML = percentDisplayMsg;
+document.getElementById("displayMsg").innerHTML = displayMsg;
+//Update the current percent input field
+document.getElementById("inputPercent").value = currPercent;
+
+   
+}
+</script>
+
+
+</html>
