@@ -10,17 +10,21 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- from http://davidbau.com/encode/seedrandom.js-->
+<script src="js/seedrandom.js"></script>
+</script>
 </head>
 <body>
 <div class="container">
 <a href="calc_ch.html">华语</a> 
 <br>
 <div class="row">
-	<p>2-2 Simulator </p>
+	<p>2-2 Skill Simulator </p>
 </div>
 
 <div class="row">
-	<p><b>Disclaimer: Rates are inaccurate right now. I am not part of the development team behind Survival Project.</b> </p>
+	<p><b>Disclaimer: Rates are calculated as of 12th July 2018. I am not part of the development team behind Survival Project.</b> </p>
 </div>
 <div class="row">
 	<p>Select the environment (FM, Prem card)</p>
@@ -36,8 +40,13 @@
 </div>
 
 <div class="row">
+	<div class="col-sm-2">Gold Force:</div>
+	<div class="col-sm-2"> <input type="checkbox" id="gf"></div>
+</div>
+
+<div class="row">
 	<div class="col-sm-2">Input your current Percent</div>
-	<div class="col-sm-1"> <input id="inputPercent" type="number" value="9" min="9" max="36" ></div>
+	<div class="col-sm-1"> <input id="inputPercent" type="number" value="16" min="9" max="36" ></div>
 	<div class="col-sm-1"><button onclick="myFunction()">2-2</button></div>
 </div>
 
@@ -50,9 +59,18 @@
 	<div class="col-sm-2">
 		Random Number Generated:
 	</div>
-	<div class="col-sm-2">
+	<div class="col-sm-6">
 		<p id="displayMsg"></p>
 	</div>
+</div>
+
+<div class="row">
+	<div id="grp1" class="hidden imagegroup"><img src="images/grp1.png" class="img-thumbnail" alt="2-2 Group 1" ></div>
+	<div id="grp2" class="hidden imagegroup"><img src="images/grp2.png" class="img-thumbnail" alt="2-2 Group 1" ></div>
+	<div id="grp3" class="hidden imagegroup"><img src="images/grp3.png" class="img-thumbnail" alt="2-2 Group 1" ></div>
+	<div id="grp4" class="hidden imagegroup"><img src="images/grp4.png" class="img-thumbnail" alt="2-2 Group 1" ></div>
+	<div id="grp5" class="hidden imagegroup"><img src="images/grp5.png" class="img-thumbnail" alt="2-2 Group 1" ></div>
+	<div id="grp6" class="hidden imagegroup"><img src="images/grp6.png" class="img-thumbnail" alt="2-2 Group 1" ></div>
 </div>
 
 <div class="row">
@@ -60,7 +78,7 @@
 		<p>New Percent</p>
 	</div>
 	
-	<div class="col-sm-2"><p id="demo"></p></div>
+	<div class="col-sm-6"><p id="demo"></p></div>
 </div>
 
 
@@ -69,155 +87,312 @@
 </div>
 <script>
 var sessionCount = 0;
+Math.seedrandom(new Date());
 function myFunction() {
-
 // Get the checkboxes
-  var fm = document.getElementById("fm");
-  var prem = document.getElementById("prem");
-  
-  var currPercent = document.getElementById("inputPercent").value;
-  var countDisplay = document.getElementById("count");
-  
-var x = Math.floor((Math.random() * 100) + 1);
-var origRoll = x;
-var displayMsg = x + " ";
-if (fm.checked == true){
-    x = x - 5;
-    displayMsg = displayMsg + "<br>-5 From FusionMania Active "
-  }
-  if (prem.checked == true){
-    x = x - 5;
-    displayMsg = displayMsg + "<br>-5 From Prem Card Active"
-  }
-  if (currPercent >= 32){
-  	x = x-10;
-    displayMsg = displayMsg + "<br>-10 From Percent >= 32 "
-  }else if (currPercent >= 28){
-  	x = x-5;
-    displayMsg = displayMsg + "<br>-5 From Percent >= 28 "
-  }else if (currPercent >= 24){
-  	x = x-3;
-    displayMsg = displayMsg + "<br>-3 From Percent >= 24 "
-  }
-  displayMsg = displayMsg + "<br>Final roll = " + x;
-var percentResult = 0;
-switch (true) {
-    case (x <= 3):
-        percentResult=36;
+	var fm = document.getElementById("fm");
+	var prem = document.getElementById("prem");
+	var prem = document.getElementById("gf");
+	  
+	var currPercent = document.getElementById("inputPercent").value;
+	if(currPercent > 35)
+	{
+		alert("You shouldn't be 2-2ing a 36% item!");
+		return;
+	}
+	var x = Math.floor((Math.random() * 100) + 1);
+	var origRoll = x;
+	var displayMsg = "Original roll: <br>" + x;
+	if (fm.checked == true)
+	{
+		x = x - 5;
+		displayMsg = displayMsg + "<br>-5 From FusionMania Active "
+	}
+	if (prem.checked == true)
+	{
+		x = x - 8;
+		displayMsg = displayMsg + "<br>-8 From Prem Card Active"
+	}
+	if (gf.checked == true)
+	{
+		x = x - 2;
+		displayMsg = displayMsg + "<br>-2 From Gold Force"
+	}
+	if (currPercent >= 32)
+	{
+		x = x-10;
+		displayMsg = displayMsg + "<br>-10 From Percent >= 32 "
+	}else if (currPercent >= 28){
+		x = x-7;
+		displayMsg = displayMsg + "<br>-7 From Percent >= 28 "
+	}else if (currPercent >= 24){
+		x = x-3;
+		displayMsg = displayMsg + "<br>-3 From Percent >= 24 "
+	}
+	  displayMsg = displayMsg + "<br>----<br>Final roll = " + x;
+	  var currClone = currPercent;
+	console.log("input percent is " + currClone);
+	var currentGrpNo = GetCurrentPercentGroupNo(currPercent);
+	
+	var groupResult = getGroupFromRolledNo(x);
+	
+	//In case of error
+	if(groupResult == 0)
+	{
+		alert("Error: Group result 0");
+		return;
+	}
+	
+	var percentDisplayMsg = "";//Prepare explanation message
+	var percentResult = 0;
+	
+	//If worse group, no change to percent
+	if(currentGrpNo > groupResult)
+	{
+		percentResult = getPercentFromGroupNo(groupResult);
+		percentDisplayMsg = "You rolled Group "+ groupResult + ": " + groupDisplay(groupResult) + " and " + percentResult + "%.";
+	}else if (currentGrpNo == groupResult)
+	{
+		percentResult = getPercentFromGroupNo(groupResult);
+		var max = groupMax(groupResult);
+		console.log("percentResult " + percentResult);
+		console.log("currPercent " + currPercent);
+		console.log("max " + max);
+		if(currPercent < 16 ){
+			console.log("currPercent < 16 ");
+			percentDisplayMsg = "You rolled Group "+ groupResult + ": " + groupDisplay(groupResult) + " and " + percentResult + "%.";
+		}
+		else if (currPercent < percentResult)//Same Group, and rolled better.
+		{
+			console.log("Same group, positive result");
+			percentDisplayMsg = "You rolled Group "+ groupResult + ": " + groupDisplay(groupResult) + " and " + percentResult + "%.";
+		}else if (currPercent == max)//Already hit the max of current group, no change.
+		{ 	
+			console.log("hit the max of current group");
+			percentResult = currPercent;
+			percentDisplayMsg = "You rolled Group "+ groupResult + ": " + groupDisplay(groupResult) +". Your current percent will not change";
+		}else if (percentResult <= currPercent)//Same Group, rolled worse.
+		{
+			console.log("the +1 condition");
+			percentResult = parseInt(currPercent) + 1;
+			percentDisplayMsg = "You rolled Group "+ groupResult + ": " + groupDisplay(groupResult) + " and " + percentResult + "%.";
+		}
+	}else if(currentGrpNo < groupResult)
+	{
+		percentResult = currPercent;
+		percentDisplayMsg = "You rolled Group "+ groupResult + ": " + groupDisplay(groupResult) + ". Your current percent will not change";
+	}
+	//CSS function to show the correct Image Group.
+	showGroup(groupResult);
+	
+	//To handle the 5% chance of -2
+	var crit = Math.floor((Math.random() * 100) + 1);
+	if(crit <= 5)
+	{
+		percentResult = currPercent - 1;
+		percentDisplayMsg = percentResult + "%.<br>You triggered the 5% chance of - 1%.<br>Your new % is " + percentResult + "%.<br>" + percentDisplayMsg;
+	}else{
+		percentDisplayMsg = percentResult + "%.<br>" + percentDisplayMsg;
+	}
+
+	//Increment session counter
+	sessionCount = sessionCount + 1;
+	document.getElementById("count").innerHTML = sessionCount;
+	//Print result and messages.
+	document.getElementById("demo").innerHTML = percentDisplayMsg;
+	document.getElementById("displayMsg").innerHTML = displayMsg;
+	//Update the current percent input field
+	document.getElementById("inputPercent").value = percentResult;
+	
+	
+}
+
+function getGroupFromRolledNo(roll) {
+	var groupResult = 0;
+	switch (true) {
+    case (roll <= 3):
+        groupResult=1;
         break;
-    case (x <= 4):
-        percentResult=35;
+    case (roll <= 6):
+        groupResult=2;
         break;
-    case (x <= 5):
-        percentResult=34;
+    case (roll <= 16):
+        groupResult=3;
         break;
-    case (x <= 7):
-        percentResult=33;
+    case (roll <= 36):
+        groupResult=4;
         break;
-    case (x <= 9):
-        percentResult=32;
+    case (roll <= 66):
+        groupResult=5;
         break;
-    case (x <= 11):
-        percentResult=31;
-        break;
-    case (x <= 13):
-        percentResult=30;
-        break;
-    case (x <= 15):
-        percentResult=29;
-        break;
-    case (x <= 19):
-        percentResult=28;
-        break;
-    case (x <= 23):
-        percentResult=27;
-        break;
-    case (x <= 27):
-        percentResult=26;
-        break;
-    case (x <= 31):
-        percentResult=25;
-        break;
-    case (x <= 35):
-        percentResult=24;
-        break;
-    case (x <= 37):
-        percentResult=23;
-        break;
-    case (x <= 39):
-        percentResult=22;
-        break;
-    case (x <= 41):
-        percentResult=21;
-        break;
-    case (x <= 43):
-        percentResult=20;
-        break;
-    case (x <= 45):
-        percentResult=19;
-        break;
-    case (x <= 47):
-        percentResult=18;
-        break;
-    case (x <= 49):
-        percentResult=17;
-        break;
-    case (x <= 51):
-        percentResult=16;
-        break;
-    case (x <= 53):
-        percentResult=15;
-        break;
-    case (x <= 55):
-        percentResult=14;
-        break;
-    case (x <= 57):
-        percentResult=13;
-        break;
-    case (x <= 59):
-        percentResult=12;
-        break;
-    case (x <= 61):
-        percentResult=11;
-        break;
-    case (x <= 63):
-        percentResult=10;
-        break;
-    case (x <= 65):
-        percentResult=9;
-        break;
-    case (x <= 95):
-        percentResult=999;
+    case (roll <= 100):
+        groupResult=6;
         break;
     default:
-        percentResult=9999;
+        groupResult=0;
         break;
+	}
+	return groupResult;
 }
-var percentDisplayMsg = "";
-if (percentResult <= currPercent){
-	percentDisplayMsg = currPercent + " No change because the result percent rolled was lower than current percent.";
-}else if (percentResult == 999){
-	percentDisplayMsg = currPercent + " No change because 30% chance of no change.";
-}else if (percentResult == 9999){
-	currPercent = currPercent -1;
-	if (currPercent = 8)
-		currPercent = 9;
-	percentDisplayMsg = (currPercent) + " Minus 1 because 5% chance of -1";
-}else{
-	currPercent = percentResult;
-	percentDisplayMsg = percentResult;
+function getPercentFromGroupNo(groupNo) {
+	var percentResult = 0;
+	switch (true) {
+    case (groupNo == 1):
+        percentResult=36;
+        break;
+    case (groupNo == 2):
+        percentResult=35;
+        break;
+    case (groupNo == 3):
+		var x = Math.floor((Math.random() * 2) + 1);
+		if(x==1)
+			percentResult=34;
+		else
+			percentResult=33;
+        break;
+    case (groupNo == 4):
+		var x = Math.floor((Math.random() * 4) + 1);
+		if(x==4)
+			percentResult=32;
+		else if(x==3)
+			percentResult=31;
+		else if(x==2)
+			percentResult=30;
+		else 
+			percentResult=29;
+        break;
+    case (groupNo == 5):
+		var x = Math.floor((Math.random() * 5) + 1);
+		if(x==5)
+			percentResult=28;
+		else if(x==4)
+			percentResult=27;
+		else if(x==3)
+			percentResult=26;
+		else if(x==2)
+			percentResult=25;
+		else 
+			percentResult=24;
+		break;
+    case (groupNo == 6):
+		var x = Math.floor((Math.random() * 8) + 1);
+		if(x==8)
+			percentResult=23;
+		else if(x==7)
+			percentResult=22;
+		else if(x==6)
+			percentResult=21;
+		else if(x==5)
+			percentResult=20;
+		else if(x==4)
+			percentResult=19;
+		else if(x==3)
+			percentResult=18;
+		else if(x==2)
+			percentResult=17;
+		else 
+			percentResult=16;
+        break;
+    default:
+        percentResult=0;
+        break;
+	}
+	var clone = percentResult;
+	console.log("Generated percent" + clone);
+	return percentResult;
 }
-
-//Increment session counter
-sessionCount = sessionCount + 1;
-document.getElementById("count").innerHTML = sessionCount;
-//Print result and messages.
-document.getElementById("demo").innerHTML = percentDisplayMsg;
-document.getElementById("displayMsg").innerHTML = displayMsg;
-//Update the current percent input field
-document.getElementById("inputPercent").value = currPercent;
-
-   
+function GetCurrentPercentGroupNo(percent){
+	var groupResult = 0;
+	switch (true) {
+    case (percent == 36 ):
+        groupResult=1;
+        break;
+    case (percent == 35):
+        groupResult=2;
+        break;
+    case (percent >= 33):
+        groupResult=3;
+        break;
+    case (percent >= 29):
+        groupResult=4;
+        break;
+    case (percent >= 24):
+        groupResult=5;
+        break;
+    default:
+        groupResult=6;
+        break;
+	}
+	return groupResult;
+}
+function groupMax(groupNo){
+	var maxValue = 0;
+	switch (true) {
+    case (groupNo <= 1):
+        maxValue = 36;
+        break;
+    case (groupNo <= 2):
+        maxValue = 35;
+        break;
+    case (groupNo <= 3):
+        maxValue = 34;
+        break;
+    case (groupNo <= 4):
+        maxValue = 32;
+        break;
+    case (groupNo <= 5):
+        maxValue = 28;
+        break;
+    case (groupNo <= 6):
+        maxValue = 23;
+        break;
+    default:
+        Alert("error in groupMax: " + groupNo);
+		maxValue = 0;
+        break;
+	}
+	var clone = maxValue;
+	console.log("groupMax is " + clone);
+	return maxValue;
+}
+function groupDisplay(groupNo){
+	switch (true) {
+    case (groupNo <= 1):
+        return "36";
+        break;
+    case (groupNo <= 2):
+        return "35";
+        break;
+    case (groupNo <= 3):
+        return "33 to 34";
+        break;
+    case (groupNo <= 4):
+        return "29 to 32";
+        break;
+    case (groupNo <= 5):
+        return "24 to 28";
+        break;
+    case (groupNo <= 6):
+        return "16 to 23";
+        break;
+    default:
+        Alert("error in groupDisplay: " + groupNo);
+        break;
+	}
+}
+function hideAllGroups(){
+	var groupList = document.getElementsByClassName("imagegroup");
+    groupList[0].classList.add("hidden");
+    groupList[1].classList.add("hidden");
+    groupList[2].classList.add("hidden");
+    groupList[3].classList.add("hidden");
+    groupList[4].classList.add("hidden");
+    groupList[5].classList.add("hidden");
+}
+function showGroup(grpId){
+	hideAllGroups();
+	var element = document.getElementById("grp" + grpId);
+    element.classList.remove("hidden");
 }
 </script>
 
