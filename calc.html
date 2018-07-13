@@ -47,7 +47,8 @@
 <div class="row">
 	<div class="col-sm-2">Input your current Percent</div>
 	<div class="col-sm-1"> <input id="inputPercent" type="number" value="16" min="9" max="36" ></div>
-	<div class="col-sm-1"><button onclick="myFunction()">2-2</button></div>
+	<div class="col-sm-1"><button id="22button" onclick="myFunction()">2-2</button></div>
+	<div class="col-sm-1"><button id="clearBtn" onclick="clearFunction()">Reset</button></div>
 </div>
 
 <div class="row">
@@ -88,6 +89,19 @@
 <script>
 var sessionCount = 0;
 Math.seedrandom(new Date());
+function clearFunction(){
+	//Hide group images.
+	hideAllGroups();
+	//Reset session counter
+	sessionCount = 0;
+	document.getElementById("count").innerHTML = sessionCount;
+	//Print result and messages.
+	document.getElementById("demo").innerHTML = "";
+	document.getElementById("displayMsg").innerHTML = "";
+	//Update the current percent input field
+	document.getElementById("inputPercent").value = 16;
+
+}
 function myFunction() {
 // Get the checkboxes
 	var fm = document.getElementById("fm");
@@ -394,6 +408,14 @@ function showGroup(grpId){
 	var element = document.getElementById("grp" + grpId);
     element.classList.remove("hidden");
 }
+document.getElementById("inputPercent")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("22button").click();
+    }
+});
+
 </script>
 
 
