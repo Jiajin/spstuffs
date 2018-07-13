@@ -14,6 +14,46 @@
 <!-- from http://davidbau.com/encode/seedrandom.js-->
 <script src="js/seedrandom.js"></script>
 </script>
+<style>
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
 </head>
 <body>
 <div class="container">
@@ -22,7 +62,7 @@
 <div class="row">
 	<p>2-2 Skill Simulator </p>
 </div>
-
+<button id="myBtn">Open Modal</button>
 <div class="row">
 	<p><b>Disclaimer: Rates are calculated as of 12th July 2018. I am not part of the development team behind Survival Project.</b> </p>
 </div>
@@ -82,7 +122,23 @@
 	<div class="col-sm-6"><p id="demo"></p></div>
 </div>
 
+<!-- The Modal -->
+<div id="myModal" class="modal">
 
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+	<div class="row">
+	<div class="col-sm-4"> 
+		<img src="https://media1.tenor.com/images/dab0d339e3e87e6dc7c96e68882f1007/tenor.gif" alt="okarin" width="300" height="200">
+	</div>
+	<div class="col-sm-4"> 
+		You got pwned by Q!
+	</div>
+	</div>
+  </div>
+
+</div>
 </body>
 
 </div>
@@ -218,6 +274,9 @@ function myFunction() {
 	//Update the current percent input field
 	document.getElementById("inputPercent").value = percentResult;
 	
+	//If crit, popup Okarin.
+	if(crit<=5)
+		popupOkarin();
 	
 }
 
@@ -418,5 +477,40 @@ document.getElementById("inputPercent")
 
 </script>
 
+<script>
+//Popup window for Okarin
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+
+function popupOkarin(){
+	console.log("called popup")
+    modal.style.display = "block";
+	setTimeout(function(){closeOkarin()}, 2500);
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    closeOkarin();
+}
+function closeOkarin()
+{
+	console.log("closeOkarin");
+	modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        closeOkarin();
+    }
+}
+</script>
 
 </html>
