@@ -62,7 +62,6 @@
 <div class="row">
 	<p>2-2 Skill Simulator </p>
 </div>
-<button id="myBtn">Open Modal</button>
 <div class="row">
 	<p><b>Disclaimer: Rates are calculated as of 12th July 2018. I am not part of the development team behind Survival Project.</b> </p>
 </div>
@@ -484,29 +483,23 @@ document.getElementById("inputPercent")
 // Get the modal
 var modal = document.getElementById('myModal');
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
-
 
 function popupOkarin(){
 	console.log("called popup")
     modal.style.display = "block";
 	setTimeout(function(){closeOkarin()}, 2500);
 }
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    closeOkarin();
-}
 function closeOkarin()
 {
 	console.log("closeOkarin");
 	modal.style.display = "none";
 }
-
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    closeOkarin();
+}
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
