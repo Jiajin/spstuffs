@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SP Stuffs - 2-2 Simulator</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/scrolling-nav.css" rel="stylesheet">
+
+	<!-- from http://davidbau.com/encode/seedrandom.js-->
+	<script src="js/seedrandom.js"></script>
+	
+	<style>
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+
+  </head>
+
+  <body id="page-top">
+  
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+	<div class="row">
+	<div class="col-sm-4"> 
+		<img src="https://media1.tenor.com/images/dab0d339e3e87e6dc7c96e68882f1007/tenor.gif" alt="okarin" width="300" height="200">
+	</div>
+	<div class="col-sm-4"> 
+		You got pwned by Q! 
+		<br>
+		-1 to your %!
+	</div>
+	</div>
+  </div>
+
+</div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">SP Stuffs</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <!-- <li class="nav-item"> -->
+              <!-- <a class="nav-link js-scroll-trigger" href="#about">About</a> -->
+            <!-- </li> -->
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#simulator">Simulator</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="bg-primary text-white">
+      <div class="container text-center">
+        <h1>SP Gen 2-2 Simulator</h1>
+        <!--<p class="lead">A landing page template freshly redesigned for Bootstrap 4</p> -->
+      </div>
+    </header>
+
+    <!-- <section id="about"> -->
+      <!-- <div class="container"> -->
+        <!-- <div class="row"> -->
+          <!-- <div class="col-lg-8 mx-auto"> -->
+            <!-- <h2>About this page</h2> -->
+            <!-- <p class="lead">This is a great place to talk about your webpage. This template is purposefully unstyled so you can use it as a boilerplate or starting point for you own landing page designs! This template features:</p> -->
+            <!-- <ul> -->
+              <!-- <li>Clickable nav links that smooth scroll to page sections</li> -->
+              <!-- <li>Responsive behavior when clicking nav links perfect for a one page website</li> -->
+              <!-- <li>Bootstrap's scrollspy feature which highlights which section of the page you're on in the navbar</li> -->
+              <!-- <li>Minimal custom CSS so you are free to explore your own unique design options</li> -->
+            <!-- </ul> -->
+          <!-- </div> -->
+        <!-- </div> -->
+      <!-- </div> -->
+    <!-- </section> -->
+
+    <section id="simulator" >
+      <div class="container">
+		<div class="row">
+			  <div class="col-lg-8 mx-auto">
+				<h2>Select the environment (FM, Premium Card)</h2>
+			  </div>
+		</div>
+		<div class="row">
+			<div class="col-lg-2 col-sm-0"></div>
+			<div class="col-lg-2 col-sm-1">Fusion Mania:</div>
+			<div class="col-lg-2 col-sm-1"> <input type="checkbox" id="fm"></div>
+		</div>
+		<div class="row">
+			<div class="col-lg-2 col-sm-0"></div>
+			<div class="col-lg-2 col-sm-1">Premium Event Card:</div>
+			<div class="col-lg-2 col-sm-1"> <input type="checkbox" id="prem"></div>
+		</div>
+		<div class="row">
+			<div class="col-lg-2 col-sm-0"></div>
+			<div class="col-lg-2 col-sm-1">Gold Force:</div>
+			<div class="col-lg-2 col-sm-1"> <input type="checkbox" id="gf"></div>
+		</div>
+	  
+		<div class="row">
+			<div class="col-lg-2 col-sm-0"></div>
+			<div class="col-lg-2">Input your current %</div>
+			<div class="col-lg-1"> <input id="inputPercent" type="number" value="16" min="9" max="36" ></div>
+			<div class="col-lg-1"><button id="22button" onclick="main()">2-2</button></div>
+			<div class="col-lg-1"><button id="clearBtn" onclick="clearFunction()">Reset</button></div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-2 col-sm-0"></div>
+			<div class="col-lg-2">No. of tries:</div>
+			<div class="col-lg-2"> <div id="count">0</div></div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-2 col-sm-0"></div>
+			<div class="col-lg-2">
+				Random Number Generated:
+			</div>
+			<div class="col-lg-6">
+				<p id="displayMsg"></p>
+			</div>
+		</div>
+	  
+		<div class="row">
+			<div class="col-lg-8 mx-auto">
+			<div id="grp1" hidden class="imagegroup"><img src="images/grp1.png" class="img-fluid" alt="2-2 Group 1" ></div>
+			<div id="grp2" hidden class="imagegroup"><img src="images/grp2.png" class="img-fluid" alt="2-2 Group 1" ></div>
+			<div id="grp3" hidden class="imagegroup"><img src="images/grp3.png" class="img-fluid" alt="2-2 Group 1" ></div>
+			<div id="grp4" hidden class="imagegroup"><img src="images/grp4.png" class="img-fluid" alt="2-2 Group 1" ></div>
+			<div id="grp5" hidden class="imagegroup"><img src="images/grp5.png" class="img-fluid" alt="2-2 Group 1" ></div>
+			<div id="grp6" hidden class="imagegroup"><img src="images/grp6.png" class="img-fluid" alt="2-2 Group 1" ></div>
+			</div>
+		</div>
+	  
+		<div class="row">
+			<div class="col-lg-2 col-sm-0"></div>
+			<div class="col-lg-2"> 
+				<p>New Percent</p>
+			</div>
+			<div class="col-lg-6"><p id="demo"></p></div>
+		</div>
+      </div>
+	</section>
+
+    <section id="about" class="bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>About</h2>
+            <p class="lead">This simulator was developed to aid the understanding of how a 2-2 skill fusion works in SP Generations. The code for the 2-2 calculation was provided on 10th July 2018.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Sim Jiajin 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom JavaScript for this theme -->
+    <script src="js/scrolling-nav.js"></script>
+
+  </body>
+
+<script>
+var sessionCount = 0;
+Math.seedrandom(new Date());
+function clearFunction(){
+	//Hide group images.
+	hideAllGroups();
+	//Reset session counter
+	sessionCount = 0;
+	document.getElementById("count").innerHTML = sessionCount;
+	//Print result and messages.
+	document.getElementById("demo").innerHTML = "";
+	document.getElementById("displayMsg").innerHTML = "";
+	//Update the current percent input field
+	document.getElementById("inputPercent").value = 16;
+}
+function main() {
+// Get the checkboxes
+	var fm = document.getElementById("fm");
+	var prem = document.getElementById("prem");
+	var gf = document.getElementById("gf");
+	  
+	var currPercent = document.getElementById("inputPercent").value;
+	if(currPercent > 35)
+	{
+		alert("You shouldn't be 2-2ing a 36% item!");
+		return;
+	}
+	var x = Math.floor((Math.random() * 100) + 1);
+	var origRoll = x;
+	var displayMsg = "Original roll: <br>" + x;
+	if (fm.checked == true)
+	{
+		x = x - 5;
+		displayMsg = displayMsg + "<br>-5 From FusionMania Active "
+	}
+	if (prem.checked == true)
+	{
+		x = x - 8;
+		displayMsg = displayMsg + "<br>-8 From Prem Card Active"
+	}
+	if (gf.checked == true)
+	{
+		x = x - 2;
+		displayMsg = displayMsg + "<br>-2 From Gold Force"
+	}
+	if (currPercent >= 32)
+	{
+		x = x-10;
+		displayMsg = displayMsg + "<br>-10 From Percent >= 32 "
+	}else if (currPercent >= 28){
+		x = x-7;
+		displayMsg = displayMsg + "<br>-7 From Percent >= 28 "
+	}else if (currPercent >= 24){
+		x = x-3;
+		displayMsg = displayMsg + "<br>-3 From Percent >= 24 "
+	}
+	  displayMsg = displayMsg + "<br>----<br>Final roll = " + x;
+	  var currClone = currPercent;
+	console.log("input percent is " + currClone);
+	var currentGrpNo = GetCurrentPercentGroupNo(currPercent);
+	
+	var groupResult = getGroupFromRolledNo(x);
+	
+	//In case of error
+	if(groupResult == 0)
+	{
+		alert("Error: Group result 0");
+		return;
+	}
+	
+	var percentDisplayMsg = "";//Prepare explanation message
+	var percentResult = 0;
+	
+	//If worse group, no change to percent
+	if(currentGrpNo > groupResult)
+	{
+		percentResult = getPercentFromGroupNo(groupResult);
+		percentDisplayMsg = "You rolled Group "+ groupResult + ": " + groupDisplay(groupResult) + " and " + percentResult + "%.";
+	}else if (currentGrpNo == groupResult)
+	{
+		percentResult = getPercentFromGroupNo(groupResult);
+		var max = groupMax(groupResult);
+		console.log("percentResult " + percentResult);
+		console.log("currPercent " + currPercent);
+		console.log("max " + max);
+		if(currPercent < 16 ){
+			console.log("currPercent < 16 ");
+			percentDisplayMsg = "You rolled Group "+ groupResult + ": " + groupDisplay(groupResult) + " and " + percentResult + "%.";
+		}
+		else if (currPercent < percentResult)//Same Group, and rolled better.
+		{
+			console.log("Same group, positive result");
+			percentDisplayMsg = "You rolled Group "+ groupResult + ": " + groupDisplay(groupResult) + " and " + percentResult + "%.";
+		}else if (currPercent == max)//Already hit the max of current group, no change.
+		{ 	
+			console.log("hit the max of current group");
+			percentResult = currPercent;
+			percentDisplayMsg = "You rolled Group "+ groupResult + ": " + groupDisplay(groupResult) +". Your current percent will not change";
+		}else if (percentResult <= currPercent)//Same Group, rolled worse.
+		{
+			console.log("the +1 condition");
+			percentResult = parseInt(currPercent) + 1;
+			percentDisplayMsg = "You rolled Group "+ groupResult + ": " + groupDisplay(groupResult) + " and " + percentResult + "%.";
+		}
+	}else if(currentGrpNo < groupResult)
+	{
+		percentResult = currPercent;
+		percentDisplayMsg = "You rolled Group "+ groupResult + ": " + groupDisplay(groupResult) + ". Your current percent will not change";
+	}
+	//CSS function to show the correct Image Group.
+	showGroup(groupResult);
+	
+	//To handle the 5% chance of -2
+	var crit = Math.floor((Math.random() * 100) + 1);
+	if(crit <= 5)
+	{
+		percentResult = currPercent - 1;
+		percentDisplayMsg = percentResult + "%.<br>You triggered the 5% chance of - 1%.<br>Your new % is " + percentResult + "%.<br>" + percentDisplayMsg;
+	}else{
+		percentDisplayMsg = percentResult + "%.<br>" + percentDisplayMsg;
+	}
+
+	//Increment session counter
+	sessionCount = sessionCount + 1;
+	document.getElementById("count").innerHTML = sessionCount;
+	//Print result and messages.
+	document.getElementById("demo").innerHTML = percentDisplayMsg;
+	document.getElementById("displayMsg").innerHTML = displayMsg;
+	//Update the current percent input field
+	document.getElementById("inputPercent").value = percentResult;
+	
+	//If crit, popup Okarin.
+	if(crit<=5)
+		popupOkarin(); 
+	
+}
+
+function getGroupFromRolledNo(roll) {
+	var groupResult = 0;
+	switch (true) {
+    case (roll <= 3):
+        groupResult=1;
+        break;
+    case (roll <= 6):
+        groupResult=2;
+        break;
+    case (roll <= 16):
+        groupResult=3;
+        break;
+    case (roll <= 36):
+        groupResult=4;
+        break;
+    case (roll <= 66):
+        groupResult=5;
+        break;
+    case (roll <= 100):
+        groupResult=6;
+        break;
+    default:
+        groupResult=0;
+        break;
+	}
+	return groupResult;
+}
+function getPercentFromGroupNo(groupNo) {
+	var percentResult = 0;
+	switch (true) {
+    case (groupNo == 1):
+        percentResult=36;
+        break;
+    case (groupNo == 2):
+        percentResult=35;
+        break;
+    case (groupNo == 3):
+		var x = Math.floor((Math.random() * 2) + 1);
+		if(x==1)
+			percentResult=34;
+		else
+			percentResult=33;
+        break;
+    case (groupNo == 4):
+		var x = Math.floor((Math.random() * 4) + 1);
+		if(x==4)
+			percentResult=32;
+		else if(x==3)
+			percentResult=31;
+		else if(x==2)
+			percentResult=30;
+		else 
+			percentResult=29;
+        break;
+    case (groupNo == 5):
+		var x = Math.floor((Math.random() * 5) + 1);
+		if(x==5)
+			percentResult=28;
+		else if(x==4)
+			percentResult=27;
+		else if(x==3)
+			percentResult=26;
+		else if(x==2)
+			percentResult=25;
+		else 
+			percentResult=24;
+		break;
+    case (groupNo == 6):
+		var x = Math.floor((Math.random() * 8) + 1);
+		if(x==8)
+			percentResult=23;
+		else if(x==7)
+			percentResult=22;
+		else if(x==6)
+			percentResult=21;
+		else if(x==5)
+			percentResult=20;
+		else if(x==4)
+			percentResult=19;
+		else if(x==3)
+			percentResult=18;
+		else if(x==2)
+			percentResult=17;
+		else 
+			percentResult=16;
+        break;
+    default:
+        percentResult=0;
+        break;
+	}
+	var clone = percentResult;
+	console.log("Generated percent" + clone);
+	return percentResult;
+}
+function GetCurrentPercentGroupNo(percent){
+	var groupResult = 0;
+	switch (true) {
+    case (percent == 36 ):
+        groupResult=1;
+        break;
+    case (percent == 35):
+        groupResult=2;
+        break;
+    case (percent >= 33):
+        groupResult=3;
+        break;
+    case (percent >= 29):
+        groupResult=4;
+        break;
+    case (percent >= 24):
+        groupResult=5;
+        break;
+    default:
+        groupResult=6;
+        break;
+	}
+	return groupResult;
+}
+function groupMax(groupNo){
+	var maxValue = 0;
+	switch (true) {
+    case (groupNo <= 1):
+        maxValue = 36;
+        break;
+    case (groupNo <= 2):
+        maxValue = 35;
+        break;
+    case (groupNo <= 3):
+        maxValue = 34;
+        break;
+    case (groupNo <= 4):
+        maxValue = 32;
+        break;
+    case (groupNo <= 5):
+        maxValue = 28;
+        break;
+    case (groupNo <= 6):
+        maxValue = 23;
+        break;
+    default:
+        Alert("error in groupMax: " + groupNo);
+		maxValue = 0;
+        break;
+	}
+	var clone = maxValue;
+	console.log("groupMax is " + clone);
+	return maxValue;
+}
+function groupDisplay(groupNo){
+	switch (true) {
+    case (groupNo <= 1):
+        return "36";
+        break;
+    case (groupNo <= 2):
+        return "35";
+        break;
+    case (groupNo <= 3):
+        return "33 to 34";
+        break;
+    case (groupNo <= 4):
+        return "29 to 32";
+        break;
+    case (groupNo <= 5):
+        return "24 to 28";
+        break;
+    case (groupNo <= 6):
+        return "16 to 23";
+        break;
+    default:
+        Alert("error in groupDisplay: " + groupNo);
+        break;
+	}
+}
+function hideAllGroups(){
+	var groupList = document.getElementsByClassName("imagegroup");
+    groupList[0].setAttribute("hidden", true);
+    groupList[1].setAttribute("hidden", true);
+    groupList[2].setAttribute("hidden", true);
+    groupList[3].setAttribute("hidden", true);
+    groupList[4].setAttribute("hidden", true);
+    groupList[5].setAttribute("hidden", true);
+}
+function showGroup(grpId){
+	hideAllGroups();
+	var element = document.getElementById("grp" + grpId);
+    element.removeAttribute("hidden");
+}
+document.getElementById("inputPercent")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("22button").click();
+    }
+});
+
+</script>
+
+<script>
+//Popup window for Okarin
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+function popupOkarin(){
+	console.log("called popup")
+    modal.style.display = "block";
+	setTimeout(function(){closeOkarin()}, 2500);
+}
+function closeOkarin()
+{
+	console.log("closeOkarin");
+	modal.style.display = "none";
+}
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    closeOkarin();
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        closeOkarin();
+    }
+}
+</script>
+</html>
