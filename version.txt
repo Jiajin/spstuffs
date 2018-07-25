@@ -3,3 +3,6 @@ v0.2 After Q posted new rates.
 
 1:32 PM 20/7/2018
 v0.3 Added bootstrap template to support mobile partially
+
+12:22 AM 26/7/2018
+v0.4 Revamped logic to match developer code given on 17th July 2018
