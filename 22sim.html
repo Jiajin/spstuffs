@@ -324,6 +324,10 @@ function main(){
 		alert("You shouldn't be 2-2ing a 36% item!");
 		return;
 	}
+	
+	//Increment session counter
+	sessionCount = sessionCount + 1;
+	
 	var x = Math.floor((Math.random() * 100) + 1);
 	var origRoll = x;
 	var displayMsg = x;
@@ -448,8 +452,6 @@ function main(){
 	//CSS function to show the correct Image Group.
 	showGroup(groupResult);
 	
-	//Increment session counter
-	sessionCount = sessionCount + 1;
 	document.getElementById("count").innerHTML = sessionCount;
 	//Print result and messages.
 	document.getElementById("resultMsg").innerHTML = percentDisplayMsg;
