@@ -424,6 +424,12 @@ function main(){
 	{
 		newPercent--;
 	}
+	
+	if(newPercent < 18)
+	{
+		newPercent = 18;
+		rolledPercent = 18;
+	}
 
 	if(rolledPercent == 36){
 		percentDisplayMsg = "You rolled Group "+ groupResult + ": 36 <br>New % : " + newPercent + "%";

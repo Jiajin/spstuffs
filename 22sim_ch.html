@@ -425,6 +425,12 @@ function main(){
 		newPercent--;
 	}
 
+	if(newPercent < 18)
+	{
+		newPercent = 18;
+		rolledPercent = 18;
+	}
+	
 	if(rolledPercent == 36){
 		percentDisplayMsg = "你的結果在第"+ groupResult + "組: 36% <br>新% : " + newPercent + "%";
 
