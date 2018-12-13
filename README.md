@@ -2,6 +2,7 @@
 Tools and Simulators for Survival Project
 
 2-2 Simulator
+https://jiajin.github.io/spstuffs/22sim
 
 12/7/2018
 v0.2 After Q posted new rates.
